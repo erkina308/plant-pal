@@ -4,8 +4,11 @@ const Plant = require("../models/plantSchema");
 const User = require("../models/userSchema");
 
 const postPlant = async (req, res, next) => {
-  const { name, description, user_id } = req.body;
+  const { name, description, username } = req.body;
   try {
+    const user1 = await User.findOne({ username: username });
+    const user_id = user1._id;
+
     const plant = await Plant.create({
       name: name,
       description: description,
@@ -16,7 +19,7 @@ const postPlant = async (req, res, next) => {
     user.plants.push(plant._id);
     user.save();
 
-    res.status(200).send(plant);
+    res.status(201).send(plant);
   } catch (err) {
     res.status(500).send("Error getting user");
     next(err);

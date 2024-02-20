@@ -112,3 +112,21 @@ describe("GET Plants by username /api/plants/:username", () => {
       });
   });
 });
+describe.only("POST /api/", () => {
+  test("Status Code: 201 and should create a new plant", () => {
+    return request(app)
+      .post("/api/plants")
+      .send({
+        name: "test",
+        description: "test",
+        username: "strawberry123",
+      })
+      .expect(201)
+      .then(({ body }) => {
+        expect(body).toHaveProperty("name");
+        expect(body).toHaveProperty("description");
+        expect(body).toHaveProperty("createdAtDate");
+        expect(body).toHaveProperty("waterDate");
+      });
+  });
+});
