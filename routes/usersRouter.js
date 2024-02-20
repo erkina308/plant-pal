@@ -7,7 +7,7 @@ const {
   getUsers,
 } = require("../controllers/userController");
 
-userRouter.route("/:user_id").get(getUserById);
+userRouter.route("/:username").get(getUserById);
 
 userRouter.route("/").post(postUser).get(getUsers);
 

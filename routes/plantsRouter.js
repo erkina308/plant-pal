@@ -10,6 +10,6 @@ const {
 
 plantsRouter.route("/").post(postPlant).get(getPlants);
 
-plantsRouter.route("/:user_id").get(getPlantsByUserId);
+plantsRouter.route("/:username").get(getPlantsByUserId);
 
 module.exports = plantsRouter;

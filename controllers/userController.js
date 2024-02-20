@@ -1,19 +1,18 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const User = require("../models/userSchema");
+
 const getUserById = async (req, res, next) => {
-  const { user_id } = req.params;
+  const { username } = req.params;
   try {
-    const user = await User.findById(user_id).populate("plants");
+    const user = await User.findOne({ username: username }).populate("plants");
     user.save();
     res.status(200).send(user);
   } catch (err) {
-    console.log(err);
-    res.status(500).send("Error getting user");
+    res.status(404).send("User does not exist");
   }
-  next();
 };
-const postUser = async (req, res) => {
+const postUser = async (req, res, next) => {
   const { username, email } = req.body;
   try {
     const data = await User.create({
@@ -22,17 +21,15 @@ const postUser = async (req, res) => {
     });
     res.status(201).send(data);
   } catch (err) {
-    console.log(err);
-    res.status(500).send("Error creating user");
+    res.status(400).send("Missing Username or Email");
   }
 };
-const getUsers = async (req, res) => {
+const getUsers = async (req, res, next) => {
   try {
     const data = await User.find();
     res.status(200).send(data);
   } catch (err) {
-    console.log(err);
-    res.status(500).send("Error getting users");
+    res.status(404).send("Invalid URL format");
   }
 };
 

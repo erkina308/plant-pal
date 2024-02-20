@@ -3,7 +3,10 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
   username: String,
-  email: String,
+  email: {
+    type: String,
+    required: true,
+  },
   plants: [{ type: Schema.Types.ObjectId, ref: "Plant" }],
 });
 

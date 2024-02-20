@@ -41,4 +41,12 @@ app.use((err, req, res, next) => {
   next(err);
 });
 
+app.use((err, req, res, next) => {
+  console.log(err, "<--- error in app");
+  if (err.errors.value === undefined) {
+    res.status(400).send(err.errors.message);
+  }
+  next(err);
+});
+
 module.exports = app;
