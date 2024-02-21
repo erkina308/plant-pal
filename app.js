@@ -3,6 +3,9 @@ const app = express();
 const apiRouter = require("./routes/apiRouter");
 app.use(express.json());
 
+const { connectDb } = require("./connection.js");
+connectDb();
+
 app.use("/api", apiRouter);
 
 app.use((err, req, res, next) => {

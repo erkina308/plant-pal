@@ -1,5 +1,6 @@
 const express = require("express");
-const mongoose = require("mongoose");
+const { mongoose } = require("../connection.js");
+
 const Plant = require("../models/plantSchema");
 const User = require("../models/userSchema");
 
