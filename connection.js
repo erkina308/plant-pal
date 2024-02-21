@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express");
 
-const ENV = process.env.NODE_ENV;
-
 require("dotenv").config({
   path: `${__dirname}/.env.production`,
 });
