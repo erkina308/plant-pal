@@ -24,12 +24,12 @@ app.use((err, req, res, next) => {
   next(err);
 });
 
-app.use((err, req, res, next) => {
-  if (err.errors.value === undefined) {
-    res.status(400).send(err.errors.message);
-  }
-  next(err);
-});
+// app.use((err, req, res, next) => {
+//   if (err.errors.value === undefined) {
+//     res.status(400).send(err.errors.message);
+//   }
+//   next(err);
+// });
 
 app.use((err, req, res, next) => {
   if (err.name === "MongoServerError" && err.code === 11000) {
