@@ -6,7 +6,7 @@
     "start": "node listen.js",
     "dev": "nodemon app.js",
     "test": "jest",
-    "seed": "node data/seed.js",
+    "seed": "node data/run-seed.js",
     "seed-prod": "NODE_ENV=DATABASE_URL npm run seed"
   },
   "keywords": [],
