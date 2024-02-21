@@ -1,16 +1,14 @@
 const app = require("../app");
 const request = require("supertest");
-const { mongoose } = require("../connection.js");
-const { seed } = require("../data/seed.js");
-const testData = require("../db/data/test-data/index");
+const mongoose = require("../connection.js");
+const seed = require("../data/seed.js");
+const devData = require("../data/index.js");
 
 beforeEach(async () => {
-  await seed();
+  return seed(devData);
 });
-
-/* Closing database connection after each test. */
-afterEach(async () => {
-  await mongoose.connection.close();
+afterAll(async () => {
+  return mongoose.connection.close();
 });
 
 describe("app", () => {

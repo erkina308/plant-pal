@@ -1,10 +1,9 @@
 require("dotenv").config();
 const mongoose = require("../connection");
-
 const Plant = require("../models/plantSchema.js");
 const User = require("../models/userSchema.js");
 
-const seed = async (plantData, userData) => {
+const seed = async ({ userData, plantData }) => {
   try {
     await User.deleteMany();
     await Plant.deleteMany();
@@ -53,8 +52,8 @@ const seed = async (plantData, userData) => {
       console.error("User 1 not found");
     }
   } catch (err) {
-    console.error("Error occurred during seeding", error);
+    console.error("Error occurred during seeding", err);
   }
 };
 
-module.exports = { seed };
+module.exports = seed;

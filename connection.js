@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express");
+
 require("dotenv").config({
   path: `${__dirname}/../.env`,
 });
@@ -15,4 +16,4 @@ mongoose
     console.error("MongoDB connection error:", err.message);
   });
 
-module.exports = { mongoose };
+module.exports = mongoose;
