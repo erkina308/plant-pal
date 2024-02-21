@@ -6,7 +6,7 @@ const getUserById = async (req, res, next) => {
   const { username } = req.params;
   try {
     const user = await User.findOne({ username: username }).populate("plants");
-    user.save();
+    await user.save();
     res.status(200).send(user);
   } catch (err) {
     res.status(404).send("User does not exist");
