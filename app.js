@@ -37,5 +37,5 @@ app.use((err, req, res, next) => {
   }
   next(err);
 });
-
+mongoose.connectDb();
 module.exports = app;
