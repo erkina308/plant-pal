@@ -6,7 +6,8 @@
     "seed": "node data/run-seed.js",
     "test": "jest",
     "dev": "nodemon app.js",
-    "start": "nodemon app.js"
+    "start": "node listen.js",
+    "seed-prod": "npm run seed"
   },
   "keywords": [],
   "author": "",
