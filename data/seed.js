@@ -1,4 +1,3 @@
-require("dotenv").config();
 const mongoose = require("../connection");
 const Plant = require("../models/plantSchema.js");
 const User = require("../models/userSchema.js");

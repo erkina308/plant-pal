@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const express = require("express");
 
-require("dotenv").config({
-  path: `${__dirname}/../.env`,
-});
+const ENV = process.env.NODE_ENV;
 
-const PORT = 9000;
+require("dotenv").config({
+  path: `${__dirname}/.env.production`,
+});
 const mongoString = process.env.DATABASE_URL;
 mongoose
   .connect(mongoString)
