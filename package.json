@@ -1,9 +1,9 @@
 {
   "name": "plant-pal",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "listen.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node listen.js",
     "dev": "nodemon app.js",
     "test": "jest"
   },

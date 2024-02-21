@@ -1,6 +1,6 @@
 const app = require("../app");
 const request = require("supertest");
-const mongoose = require("mongoose");
+const { mongoose } = require("../connection.js");
 const { seed } = require("../data/seed.js");
 require("dotenv").config();
 
@@ -112,7 +112,7 @@ describe("GET Plants by username /api/plants/:username", () => {
       });
   });
 });
-describe.only("POST /api/", () => {
+describe("POST /api/plants", () => {
   test("Status Code: 201 and should create a new plant", () => {
     return request(app)
       .post("/api/plants")
@@ -127,6 +127,18 @@ describe.only("POST /api/", () => {
         expect(body).toHaveProperty("description");
         expect(body).toHaveProperty("createdAtDate");
         expect(body).toHaveProperty("waterDate");
+      });
+  });
+  test("Status Code: 400 and respond with appropriate error message", () => {
+    const newPlant = {
+      name: "WorldHello",
+    };
+    return request(app)
+      .post("/api/plants")
+      .send(newPlant)
+      .expect(400)
+      .then(({ text }) => {
+        expect(text).toBe("Missing Name, User or Description");
       });
   });
 });

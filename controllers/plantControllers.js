@@ -21,7 +21,7 @@ const postPlant = async (req, res, next) => {
 
     res.status(201).send(plant);
   } catch (err) {
-    res.status(500).send("Error getting user");
+    res.status(400).send("Missing Name, User or Description");
     next(err);
   }
 };

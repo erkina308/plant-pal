@@ -1,24 +1,7 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
 const apiRouter = require("./routes/apiRouter");
 app.use(express.json());
-
-require("dotenv").config();
-
-const PORT = 9000;
-const mongoString = process.env.DATABASE_URL;
-mongoose
-  .connect(mongoString)
-  .then(() => {
-    console.log("Connected to MongoDB");
-    app.listen(PORT, () =>
-      console.log(`Server running on http://localhost:9000`)
-    );
-  })
-  .catch((err) => {
-    console.error("MongoDB connection error:", err.message);
-  });
 
 app.use("/api", apiRouter);
 
