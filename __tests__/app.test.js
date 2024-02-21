@@ -5,10 +5,10 @@ const seed = require("../data/seed.js");
 const devData = require("../data/index.js");
 
 beforeEach(async () => {
-  return seed(devData);
+  await seed(devData);
 });
 afterAll(async () => {
-  return mongoose.connection.close();
+  await mongoose.connection.close();
 });
 
 describe("app", () => {
