@@ -5,9 +5,7 @@
   "scripts": {
     "start": "node listen.js",
     "dev": "nodemon app.js",
-    "test": "jest",
-    "seed": "node data/seed.js",
-    "seed-prod": "DATABASE_URL= npm run seed"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
