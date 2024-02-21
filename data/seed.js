@@ -3,10 +3,9 @@ const Plant = require("../models/plantSchema.js");
 const User = require("../models/userSchema.js");
 
 const seed = async ({ userData, plantData }) => {
+  await User.deleteMany();
+  await Plant.deleteMany();
   try {
-    await User.deleteMany();
-    await Plant.deleteMany();
-
     const users = await User.create(userData);
 
     const plant1 = await Plant.create({

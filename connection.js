@@ -4,14 +4,16 @@ require("dotenv").config({
   path: `${__dirname}/.env.production`,
 });
 
-const connectDb = async () => {
-  try {
-    const mongoString = process.env.DATABASE_URL;
-    await mongoose.connect(mongoString);
-    console.log("Connected to MongoDB");
-  } catch (err) {
-    console.error("MongoDB connection error:", err.message);
-  }
-};
+const mongoString = process.env.DATABASE_URL;
 
-module.exports = { mongoose, connectDb };
+mongoose
+  .connect(mongoString)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+
+  .catch((err) => {
+    console.error("MongoDB connection error:", err.message);
+  });
+
+module.exports = { mongoose };
