@@ -32,7 +32,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  if (error.name === "MongoServerError" && error.code === 11000) {
+  if (err.name === "MongoServerError" && err.code === 11000) {
     next(new Error("There was a duplicate key error"));
   }
   next(err);

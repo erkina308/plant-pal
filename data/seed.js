@@ -1,19 +1,16 @@
 require("dotenv").config();
-const mongoose = require("mongoose");
+const mongoose = require("../connection");
+
 const Plant = require("../models/plantSchema.js");
 const User = require("../models/userSchema.js");
-const plantData = require("./plants.json");
-const userData = require("./users.json");
 
-const seed = async () => {
+const seed = async (plantData, userData) => {
   try {
     await User.deleteMany();
     await Plant.deleteMany();
 
     const users = await User.create(userData);
-    // const plantPromises = plantData.map(async (plant, index) => {
 
-    // })
     const plant1 = await Plant.create({
       name: plantData[0].name,
       description: plantData[0].description,

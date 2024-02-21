@@ -2,10 +2,9 @@ const app = require("../app");
 const request = require("supertest");
 const { mongoose } = require("../connection.js");
 const { seed } = require("../data/seed.js");
-require("dotenv").config();
+const testData = require("../db/data/test-data/index");
 
 beforeEach(async () => {
-  await mongoose.connect(process.env.DATABASE_URL);
   await seed();
 });
 
@@ -55,7 +54,6 @@ describe("app", () => {
         .send({ username: "test", email: "<EMAIL>" })
         .expect(201)
         .then(({ _body }) => {
-          console.log(_body);
           expect(_body).toHaveProperty("username");
           expect(_body).toHaveProperty("email");
           expect(_body).toHaveProperty("plants");
