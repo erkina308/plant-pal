@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "listen.js",
   "scripts": {
-    "start": "node listen.js",
-    "dev": "nodemon app.js",
-    "test": "jest",
     "seed": "node data/run-seed.js",
+    "test": "jest",
+    "dev": "nodemon app.js",
+    "prepare": "husky install",
+    "start": "node listen.js",
     "seed-prod": "NODE_ENV=DATABASE_URL npm run seed"
   },
   "keywords": [],

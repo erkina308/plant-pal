@@ -3,9 +3,12 @@ const mongoose = require("../connection.js");
 const devData = require("./index.js");
 
 const runSeed = async () => {
-  await seed(devData).then(async () => {
+  try {
+    await seed(devData);
     await mongoose.connection.close();
-  });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 runSeed();
