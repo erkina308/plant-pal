@@ -6,9 +6,7 @@
     "seed": "node data/run-seed.js",
     "test": "jest",
     "dev": "nodemon app.js",
-    "prepare": "husky install",
-    "start": "node listen.js",
-    "seed-prod": "NODE_ENV=DATABASE_URL npm run seed"
+    "start": "node listen.js"
   },
   "keywords": [],
   "author": "",
