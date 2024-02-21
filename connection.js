@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 require("dotenv").config({
-  path: `${__dirname}/.env.production`,
+  path: `${__dirname}/.env.development`,
 });
 
 const mongoString = process.env.DATABASE_URL;

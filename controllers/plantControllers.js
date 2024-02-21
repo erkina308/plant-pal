@@ -18,7 +18,7 @@ const postPlant = async (req, res, next) => {
 
     const user = await User.findById(user_id);
     user.plants.push(plant._id);
-    user.save();
+    await user.save();
 
     res.status(201).send(plant);
   } catch (err) {
