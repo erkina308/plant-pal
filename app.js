@@ -4,6 +4,7 @@ require("dotenv").config({
 const connectDb = require("./connection.js");
 const express = require("express");
 const apiRouter = require("./routes/apiRouter");
+const plantSchema = require("./models/plantSchema");
 
 connectDb();
 
@@ -15,21 +16,30 @@ app.use("/api", apiRouter);
 app.use((err, req, res, next) => {
   if (err.status === 404) {
     res.status(404).send({ msg: err.msg });
+  } else {
+    next(err);
   }
-  next(err);
 });
 app.use((err, req, res, next) => {
   if (err.status === 500) {
     res.status(500).send({ msg: err.msg });
+  } else {
+    next(err);
   }
-  next(err);
 });
 app.use((err, req, res, next) => {
   if (err.status === 400) {
     res.status(400).send({ msg: err.msg });
+  } else {
+    next(err);
   }
-  next(err);
 });
+
+// app.use((err, req, res, next) => {
+//   if (err.name === "MongoServerError" && err.code === 11000) {
+//     res.status(400).send({ msg: "There was a duplicate key error" });
+//   }
+// });
 
 // app.use((err, req, res, next) => {
 //   if (err.errors.value === undefined) {

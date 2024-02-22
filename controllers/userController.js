@@ -9,6 +9,7 @@ const getUserById = async (req, res, next) => {
     res.status(200).send(user);
   } catch (err) {
     res.status(404).send("User does not exist");
+    next(err);
   }
 };
 const postUser = async (req, res, next) => {
@@ -21,6 +22,7 @@ const postUser = async (req, res, next) => {
     res.status(201).send(data);
   } catch (err) {
     res.status(400).send("Missing Username or Email");
+    next(err);
   }
 };
 const getUsers = async (req, res, next) => {
@@ -28,7 +30,8 @@ const getUsers = async (req, res, next) => {
     const data = await User.find();
     res.status(200).send(data);
   } catch (err) {
-    res.status(404).send("Invalid URL format");
+    // res.status(404).send("Invalid URL format");
+    next(err);
   }
 };
 

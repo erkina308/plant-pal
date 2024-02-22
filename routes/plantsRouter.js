@@ -6,9 +6,12 @@ const {
   postPlant,
   getPlants,
   getPlantsByUserId,
+  deletePlant,
 } = require("../controllers/plantControllers");
 
 plantsRouter.route("/").post(postPlant).get(getPlants);
+
+plantsRouter.route("/:plant_id").delete(deletePlant);
 
 plantsRouter.route("/:username").get(getPlantsByUserId);
 

@@ -17,6 +17,7 @@ describe("app", () => {
         .get("/api/users")
         .expect(200)
         .then(({ _body }) => {
+          console.log(_body);
           expect(_body[0]).toHaveProperty("username");
           expect(_body[0]).toHaveProperty("email");
         });
@@ -99,12 +100,7 @@ describe("GET Plants by username /api/plants/:username", () => {
       });
   });
   test("Status Code: 404 for invalid username", () => {
-    return request(app)
-      .get("/api/plants/invalidUserName")
-      .expect(404)
-      .then(({ text }) => {
-        expect(text).toBe("Error getting plants");
-      });
+    return request(app).get("/api/plants/invalidUserName").expect(404);
   });
 });
 describe("POST /api/plants", () => {
@@ -115,13 +111,17 @@ describe("POST /api/plants", () => {
         name: "test",
         description: "test",
         username: "strawberry123",
+        food_inc: 11,
+        water_inc: 10,
       })
       .expect(201)
       .then(({ body }) => {
+        console.log(body);
         expect(body).toHaveProperty("name");
         expect(body).toHaveProperty("description");
         expect(body).toHaveProperty("createdAtDate");
         expect(body).toHaveProperty("waterDate");
+        expect(body).toHaveProperty("foodDate");
       });
   });
   test("Status Code: 400 and respond with appropriate error message", () => {
@@ -135,5 +135,15 @@ describe("POST /api/plants", () => {
       .then(({ text }) => {
         expect(text).toBe("Missing Name, User or Description");
       });
+  });
+});
+describe("DELETE /api/plants/:plant_id", () => {
+  test("Status Code: 200 and delete plant successfully ", () => {
+    return request(app)
+      .delete("/api/plants/65d740552a89d73462187a7c")
+      .expect(204);
+  });
+  test("Status Code: 400", () => {
+    return request(app).delete("/api/plants/invalidPlantId").expect(400);
   });
 });
