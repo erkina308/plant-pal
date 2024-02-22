@@ -5,7 +5,7 @@ const User = require("../models/userSchema");
 const {
   postPlant,
   getPlants,
-  getPlantsByUserId,
+  getPlant,
   deletePlant,
 } = require("../controllers/plantControllers");
 
@@ -13,6 +13,6 @@ plantsRouter.route("/").post(postPlant).get(getPlants);
 
 plantsRouter.route("/:plant_id").delete(deletePlant);
 
-plantsRouter.route("/:username").get(getPlantsByUserId);
+plantsRouter.route("/:plant_id").get(getPlant);
 
 module.exports = plantsRouter;

@@ -3,8 +3,9 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 const seed = require("../db/seeds/seed.js");
 const testData = require("../db/data/test/index.js");
+const connectDb = require("../connection.js");
 beforeEach(async () => {
-  await seed(testData);
+  await seed(testData)
 });
 afterAll(async () => {
   await mongoose.connection.close();
@@ -87,10 +88,12 @@ describe("GET /api/plants", () => {
     return request(app).get("/api/plantttttz").expect(404);
   });
 });
-describe("GET Plants by username /api/plants/:username", () => {
+
+
+describe("GET Plants by username /api/users/:username/plants", () => {
   test("Status Code: 200 - and return specific plants for user", () => {
     return request(app)
-      .get("/api/plants/kong123")
+      .get("/api/users/kong123/plants")
       .expect(200)
       .then(({ body }) => {
         expect(body[0]).toHaveProperty("name");

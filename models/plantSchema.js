@@ -9,22 +9,20 @@ const plantSchema = new Schema({
     default: "hi",
   },
   createdAtDate: {
-    type: Date,
-    default: () => new Date(Date.now()),
+    type: Number,
+    default: () => Date.now(),
     immutable: true,
   },
   waterDate: {
-    type: Date,
+    type: Number,
+    default: () => (Date.now() + 10 * (24 * 3600000)),
     required: true,
   },
 
   foodDate: {
-    type: Date,
+    type: Number,
+    default: () => (Date.now() + 10 * (24 * 3600000)),
     required: true,
-  },
-  updatedDate: {
-    type: Date,
-    default: () => new Date(Date.now()),
   },
   user_id: { type: Schema.Types.ObjectId, ref: "User" },
 });
