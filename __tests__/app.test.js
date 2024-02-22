@@ -1,12 +1,10 @@
 const app = require("../app");
 const request = require("supertest");
-// const { mongoose } = require("../connection.js");
 const mongoose = require("mongoose");
-const seed = require("../data/seed.js");
-const devData = require("../data/index.js");
-
+const seed = require("../db/seeds/seed.js");
+const testData = require("../db/data/test/index.js");
 beforeEach(async () => {
-  await seed(devData);
+  await seed(testData);
 });
 afterAll(async () => {
   await mongoose.connection.close();

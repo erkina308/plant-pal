@@ -1,6 +1,5 @@
-const Plant = require("../models/plantSchema.js");
-const User = require("../models/userSchema.js");
-
+const Plant = require("../../models/plantSchema.js");
+const User = require("../../models/userSchema.js");
 const seed = async ({ userData, plantData }) => {
   await User.deleteMany();
   await Plant.deleteMany();
