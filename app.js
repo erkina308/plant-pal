@@ -1,7 +1,6 @@
 require("dotenv").config({
   path: `${__dirname}/.env.production`,
 });
-// const cors = require("cors");
 const connectDb = require("./connection.js");
 const express = require("express");
 const apiRouter = require("./routes/apiRouter");

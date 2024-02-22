@@ -1,5 +1,4 @@
 const express = require("express");
-// const { mongoose } = require("../connection.js");
 const User = require("../models/userSchema");
 
 const getUserById = async (req, res, next) => {
