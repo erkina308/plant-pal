@@ -1,19 +1,13 @@
 const mongoose = require("mongoose");
-const express = require("express");
-require("dotenv").config({
-  path: `${__dirname}/.env.development`,
-});
+mongoose.set("strictQuery", false);
 
-const mongoString = process.env.DATABASE_URL;
-
-mongoose
-  .connect(mongoString)
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-
-  .catch((err) => {
-    console.error("MongoDB connection error:", err.message);
-  });
-
-module.exports = { mongoose };
+const connectDb = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.DATABASE_URL);
+    console.log(`Connected to MongoDB: ${conn.connection.host}`);
+  } catch (err) {
+    console.log(err);
+    process.exit(1);
+  }
+};
+module.exports = connectDb;

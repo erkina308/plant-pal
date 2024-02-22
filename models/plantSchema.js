@@ -1,4 +1,5 @@
-const { mongoose } = require("../connection.js");
+// const { mongoose } = require("../connection.js");
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const plantSchema = new Schema({

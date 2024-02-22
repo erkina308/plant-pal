@@ -1,4 +1,4 @@
-module.exports = userData = [
+const userData = [
   {
     username: "strawberry123",
     email: "strawberry123@hotmail.com",
@@ -8,3 +8,5 @@ module.exports = userData = [
     email: "kong123@hotmail.com",
   },
 ];
+
+module.exports = userData;

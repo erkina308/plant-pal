@@ -1,8 +1,16 @@
+require("dotenv").config({
+  path: `${__dirname}/.env.production`,
+});
+// const cors = require("cors");
+const connectDb = require("./connection.js");
 const express = require("express");
-const app = express();
 const apiRouter = require("./routes/apiRouter");
-app.use(express.json());
 
+connectDb();
+
+const app = express();
+app.use(express.json());
+// app.use(cors);
 app.use("/api", apiRouter);
 
 app.use((err, req, res, next) => {

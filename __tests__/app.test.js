@@ -1,6 +1,7 @@
 const app = require("../app");
 const request = require("supertest");
-const { mongoose } = require("../connection.js");
+// const { mongoose } = require("../connection.js");
+const mongoose = require("mongoose");
 const seed = require("../data/seed.js");
 const devData = require("../data/index.js");
 
