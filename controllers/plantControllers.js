@@ -21,10 +21,20 @@ const postPlant = async (req, res, next) => {
 
     const user = await User.findById(user_id);
     user.plants.push(plant._id);
+
     await user.save();
     res.status(201).send({ plant: plant });
   } catch (err) {
-    res.status(400).send("Missing Name, User or Description");
+    if (
+      !name ||
+      !description ||
+      !username ||
+      !food_inc ||
+      !water_inc ||
+      !image_url
+    ) {
+      res.status(400).send("Missing Input Value");
+    }
     next(err);
   }
 };

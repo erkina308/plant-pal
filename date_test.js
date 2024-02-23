@@ -14,11 +14,11 @@ const func = (days) => {
 // console.log(Date.parse(currentDate));
 
 // const daysLeft =
-//   (Date.parse(waterDate) - Date.parse(currentDate)) / (24 * 3600000);
+//   (Date.parse(waterDate) - Date.parse(currentDate)) / (24 * 3 600 000);
 // console.log(daysLeft);
 
-// console.log((waterDate - Date.now()) / (24 * 3600000));
+// console.log((waterDate - Date.now()) / (24 * 3 600000));
 
 // console.log(new Date() + Number(12) * 24 * 60 * 60 * 1000);
 
-console.log(typeof Date.now());
+// console.log(Date.now());

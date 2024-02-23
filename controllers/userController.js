@@ -20,7 +20,11 @@ const postUser = async (req, res, next) => {
     });
     res.status(201).send({ user: user });
   } catch (err) {
-    res.status(400).send("Missing Username or Email");
+    if (!email) {
+      res.status(400).send("Missing Email");
+    } else if (!username) {
+      res.status(400).send("Missing Username");
+    }
     next(err);
   }
 };

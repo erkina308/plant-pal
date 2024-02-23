@@ -12,7 +12,9 @@ beforeEach(async () => {
 afterAll(async () => {
   await mongoose.connection.close();
 });
-
+console.log(
+  "<-------- im here, im here, im here im here, im here, im here im here, im here, im here im here, im here, im hereim here, im here, im here im here, im here, im hereim here, im here, im here im here, im here, im here im here, im here, im here"
+);
 describe("app", () => {
   describe("GET /api/users", () => {
     test("Status Code: 200 and should return all users data", () => {
@@ -82,7 +84,19 @@ describe("app", () => {
       .send(newUser)
       .expect(400)
       .then(({ text }) => {
-        expect(text).toBe("Missing Username or Email");
+        expect(text).toBe("Missing Email");
+      });
+  });
+  test("Status Code: 400 and respond with appropriate error message", () => {
+    const newUser = {
+      email: "augs@augs",
+    };
+    return request(app)
+      .post("/api/users")
+      .send(newUser)
+      .expect(400)
+      .then(({ text }) => {
+        expect(text).toBe("Missing Username");
       });
   });
 });
@@ -165,7 +179,7 @@ describe("POST /api/plants", () => {
       .send(newPlant)
       .expect(400)
       .then(({ text }) => {
-        expect(text).toBe("Missing Name, User or Description");
+        expect(text).toBe("Missing Input Value");
       });
   });
 });
