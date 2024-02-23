@@ -6,6 +6,7 @@ const postPlant = async (req, res, next) => {
   try {
     const user1 = await User.findOne({ username: username });
     const user_id = user1._id;
+    console.log(typeof user_id, "user_id")
 
     const plant = await Plant.create({
       name: name,
@@ -41,7 +42,10 @@ const getPlants = async (req, res, next) => {
 const getPlant = async (req, res, next) => {
   const { plant_id } = req.params;
   try {
-    const plant = await Plant.findById(plant_id)
+    const plant = await Plant.findByIdAndDelete(plant_id);
+    if (!plant) {
+      return res.status(404).send({ err: 'plant ID not found' });
+    }
     res.status(200).send(plant);
   } catch (err) {
     res.status(404).send("Error getting plants");
@@ -51,12 +55,15 @@ const getPlant = async (req, res, next) => {
 
 const deletePlant = async (req, res, next) => {
   const { plant_id } = req.params;
+
   try {
+    // const plantsBefore = await Plant.find()
     await Plant.findByIdAndDelete(plant_id);
+    // const plantsAfter = await Plant.find()
 
     res.status(204).send();
   } catch (err) {
-    res.status(400).send();
+    res.status(404).send();
     next(err);
   }
 };

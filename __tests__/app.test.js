@@ -3,9 +3,9 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 const seed = require("../db/seeds/seed.js");
 const testData = require("../db/data/test/index.js");
-const connectDb = require("../connection.js");
+let testPlantId;
 beforeEach(async () => {
-  await seed(testData)
+  testPlantId = await seed(testData)
 });
 afterAll(async () => {
   await mongoose.connection.close();
@@ -15,7 +15,7 @@ describe("app", () => {
   describe("GET /api/users", () => {
     test("Status Code: 200 and should return all users data", () => {
       return request(app)
-        .get("/api/users")
+        .get("/api/users") 
         .expect(200)
         .then(({ _body }) => {
           console.log(_body);
@@ -89,6 +89,22 @@ describe("GET /api/plants", () => {
   });
 });
 
+describe("GET /api/plant/:plant_id", () => {
+  test("Status Code: 200 and should return plant", () => {
+    console.log(typeof testPlantId.toString())
+    return request(app)
+      .get(`/api/plants/${testPlantId.toString()}`)
+      .expect(200)
+      .then(({ _body }) => {
+        expect(_body).toHaveProperty("name");
+        expect(_body).toHaveProperty("description");
+        expect(_body).toHaveProperty("user_id");
+      });
+  });
+  test("Status Code: 404 for invalid endpoint", () => {
+    return request(app).get("/api/plantttttz").expect(404);
+  });
+});
 
 describe("GET Plants by username /api/users/:username/plants", () => {
   test("Status Code: 200 - and return specific plants for user", () => {
@@ -142,11 +158,13 @@ describe("POST /api/plants", () => {
 });
 describe("DELETE /api/plants/:plant_id", () => {
   test("Status Code: 200 and delete plant successfully ", () => {
+    console.log(testPlantId)
+
     return request(app)
-      .delete("/api/plants/65d740552a89d73462187a7c")
+      .delete(`/api/plants/${testPlantId.toString()}`)
       .expect(204);
   });
-  test("Status Code: 400", () => {
-    return request(app).delete("/api/plants/invalidPlantId").expect(400);
+  test("Status Code: 404", () => {
+    return request(app).delete("/api/plants/invalidPlantId").expect(404);
   });
 });

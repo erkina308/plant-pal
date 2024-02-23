@@ -47,6 +47,7 @@ const seed = async ({ userData, plantData }) => {
     } else {
       console.error("User 1 not found");
     }
+    return plant1._id
   } catch (err) {
     console.error("Error occurred during seeding", err);
   }

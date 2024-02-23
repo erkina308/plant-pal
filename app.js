@@ -4,7 +4,6 @@ require("dotenv").config({
 const connectDb = require("./connection.js");
 const express = require("express");
 const apiRouter = require("./routes/apiRouter");
-const plantSchema = require("./models/plantSchema");
 
 connectDb();
 
