@@ -1,5 +1,5 @@
 const User = require("../models/userSchema");
-
+const Plant = require("../models/plantSchema");
 const getUserById = async (req, res, next) => {
   const { username } = req.params;
   try {

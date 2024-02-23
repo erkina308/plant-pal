@@ -6,7 +6,6 @@ const {
   postPlant,
   getPlants,
   getPlant,
-  deletePlant,
 } = require("../controllers/plantControllers");
 
 plantsRouter.route("/").post(postPlant).get(getPlants);

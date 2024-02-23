@@ -169,11 +169,13 @@ describe("POST /api/plants", () => {
 });
 describe("DELETE /api/users/username/plants/:plant_id", () => {
   test("Status Code: 200 and delete plant successfully ", () => {
-    console.log(testPlantId, "<--- id for plant");
+    const id = testPlantId.toString();
+    console.log(typeof id, "from test");
     return request(app)
-      .delete(`/api/users/strawberry123/plants/${testPlantId.toString()}`)
+      .delete(`/api/users/strawberry123/plants/${id}`)
       .expect(204);
   });
+
   test("Status Code: 404", () => {
     return request(app)
       .delete("/api/users/rt54h45h/plants/rty45h45h")
