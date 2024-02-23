@@ -2,11 +2,11 @@ const Plant = require("../models/plantSchema");
 const User = require("../models/userSchema");
 
 const postPlant = async (req, res, next) => {
-  const { name, description, username, food_inc, water_inc} = req.body;
+  const { name, description, username, food_inc, water_inc } = req.body;
   try {
     const user1 = await User.findOne({ username: username });
     const user_id = user1._id;
-    console.log(typeof user_id, "user_id")
+    console.log(typeof user_id, "user_id");
 
     const plant = await Plant.create({
       name: name,
@@ -16,13 +16,12 @@ const postPlant = async (req, res, next) => {
       waterInterval: Number(water_inc) * (24 * 3600000),
       foodDate: Date.now() + Number(food_inc) * (24 * 3600000),
       foodInterval: Number(food_inc) * (24 * 3600000),
-
     });
 
     const user = await User.findById(user_id);
     user.plants.push(plant._id);
     await user.save();
-    res.status(201).send(plant);
+    res.status(201).send({ plant: plant });
   } catch (err) {
     res.status(400).send("Missing Name, User or Description");
     next(err);
@@ -32,21 +31,20 @@ const postPlant = async (req, res, next) => {
 const getPlants = async (req, res, next) => {
   try {
     const plants = await Plant.find();
-    res.status(200).send(plants);
+    res.status(200).send({ plants: plants });
   } catch (err) {
     next(err);
   }
 };
-
 
 const getPlant = async (req, res, next) => {
   const { plant_id } = req.params;
   try {
     const plant = await Plant.findByIdAndDelete(plant_id);
     if (!plant) {
-      return res.status(404).send({ err: 'plant ID not found' });
+      return res.status(404).send({ err: "plant ID not found" });
     }
-    res.status(200).send(plant);
+    res.status(200).send({ plant: plant });
   } catch (err) {
     res.status(404).send("Error getting plants");
     next(err);

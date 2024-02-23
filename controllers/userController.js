@@ -5,7 +5,7 @@ const getUserById = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: username }).populate("plants");
     await user.save();
-    res.status(200).send(user);
+    res.status(200).send({ user: user });
   } catch (err) {
     res.status(404).send("User does not exist");
     next(err);
@@ -14,11 +14,11 @@ const getUserById = async (req, res, next) => {
 const postUser = async (req, res, next) => {
   const { username, email } = req.body;
   try {
-    const data = await User.create({
+    const user = await User.create({
       username: username,
       email: email,
     });
-    res.status(201).send(data);
+    res.status(201).send({ user: user });
   } catch (err) {
     res.status(400).send("Missing Username or Email");
     next(err);
@@ -27,7 +27,7 @@ const postUser = async (req, res, next) => {
 const getUsers = async (req, res, next) => {
   try {
     const users = await User.find();
-    res.status(200).send(users);
+    res.status(200).send({ users: users });
   } catch (err) {
     // res.status(404).send("Invalid URL format");
     next(err);
@@ -38,7 +38,7 @@ const getPlantsByUserId = async (req, res, next) => {
   const { username } = req.params;
   try {
     const user = await User.findOne({ username: username }).populate("plants");
-    res.status(200).send(user.plants);
+    res.status(200).send({ plants: user.plants });
   } catch (err) {
     res.status(404).send("Error getting plants");
     next(err);
