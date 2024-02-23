@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "listen.js",
   "scripts": {
-    "seed": "node data/run-seed.js",
+    "seed": "node db/seeds/run-seed.js",
     "test": "jest",
     "dev": "nodemon app.js",
     "start": "node listen.js",

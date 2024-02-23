@@ -2,6 +2,93 @@
   "GET /api": {
     "description": "serves up a json representation of all the available endpoints of the api"
   },
+  "GET /api/users": {
+    "description": "serves an array of all users",
+    "queries": [],
+    "exampleResponse": {
+      "users": [
+        {
+          "_id": "65d7402f122043c102717ce5",
+          "username": "mangoman123",
+          "email": "mangoman123@gmail.com",
+          "plants": [
+            "65d743c7122043c102717d06",
+            "65d743cd122043c102717d0b",
+            "65d743d5122043c102717d10"
+          ],
+          "__v": 3
+        },
+        {
+          "_id": "65d741a5122043c102717cf2",
+          "username": "strawberryman",
+          "email": "strawberryman@gmail.com",
+          "plants": ["65d743ad122043c102717cfc", "65d743ba122043c102717d01"],
+          "__v": 2
+        }
+      ]
+    }
+  },
+  "GET /api/users/:username": {
+    "description": "serves an array of a user by it's username",
+    "queries": [],
+    "exampleResponse": {
+      "user": {
+        "_id": "65d7402f122043c102717ce5",
+        "username": "mangoman123",
+        "email": "mangoman123@gmail.com",
+        "plants": [
+          {
+            "_id": "65d743c7122043c102717d06",
+            "name": "Snake plant",
+            "description": "I am a Snake plant",
+            "image_url": "hi",
+            "user_id": "65d7402f122043c102717ce5",
+            "createdAtDate": 1708606407386,
+            "waterDate": 1708606407386,
+            "foodDate": 1708606407386,
+            "updatedDate": "2024-02-22T12:53:27.386Z",
+            "__v": 0
+          }
+        ],
+        "__v": 3
+      }
+    }
+  },
+  "GET /api/users/:username/plants": {
+    "description": "serves an array of plants for the given user",
+    "exampleResponse": {
+      "plants": [
+        {
+          "_id": "65d743c7122043c102717d06",
+          "name": "Snake plant",
+          "description": "I am a Snake plant",
+          "image_url": "hi",
+          "user_id": "65d7402f122043c102717ce5",
+          "createdAtDate": 1708606407386,
+          "waterDate": 1708606407386,
+          "foodDate": 1708606407386,
+          "updatedDate": "2024-02-22T12:53:27.386Z",
+          "__v": 0
+        }
+      ]
+    }
+  },
+  "POST /api/users": {
+    "description": "adds a user to the database",
+    "requestBody": {
+      "username": "plantsareawesome",
+      "email": "testytest123@email.com"
+    },
+    "exampleResponse": {
+      "user": {
+        "username": "plantsareawesome",
+        "email": "testytest123@email.com",
+        "plants": [],
+        "_id": "65d8742abe6104225a7623fc",
+        "__v": 0
+      }
+    }
+  },
   "GET /api/plants": {
     "description": "serves an array of all plants",
     "queries": [],
@@ -34,99 +121,49 @@
       ]
     }
   },
-  "GET /api/users": {
-    "description": "serves an array of all users",
-    "queries": [],
-    "exampleResponse": {
-      "users": [
-        {
-          "_id": "65d7402f122043c102717ce5",
-          "username": "mangoman123",
-          "email": "mangoman123@gmail.com",
-          "plants": [
-            "65d743c7122043c102717d06",
-            "65d743cd122043c102717d0b",
-            "65d743d5122043c102717d10"
-          ],
-          "__v": 3
-        },
-        {
-          "_id": "65d741a5122043c102717cf2",
-          "username": "strawberryman",
-          "email": "strawberryman@gmail.com",
-          "plants": ["65d743ad122043c102717cfc", "65d743ba122043c102717d01"],
-          "__v": 2
-        }
-      ]
-    }
-  },
-  "GET /api/users/:username": {
-    "description": "serves an array of an article by it's id",
-    "queries": ["author", "topic", "sort_by", "order"],
-    "exampleResponse": {
-      "plants": [
-        {
-          "title": "Seafood substitutions are increasing",
-          "topic": "cooking",
-          "author": "weegembump",
-          "body": "Text from the article..",
-          "created_at": "2018-05-30T15:59:13.341Z",
-          "votes": 0,
-          "comment_count": 6
-        }
-      ]
-    }
-  },
-  "GET /api/articles/:article_id/comments": {
-    "description": "serves an array of comments for the given article_id",
-    "exampleResponse": {
-      "comment": [
-        {
-          "body": "Text from the article..",
-          "votes": 0,
-          "author": "weegembump",
-          "article_id": 1,
-          "created_at": "2018-05-30T15:59:13.341Z"
-        }
-      ]
-    }
-  },
-  "POST /api/articles/:article_id/comments": {
-    "description": "adds a comment for the chosen article",
-    "exampleResponse": {
-      "comment": [
-        {
-          "body": "Text from the article..",
-          "votes": 0,
-          "author": "weegembump",
-          "article_id": 1,
-          "created_at": "2018-05-30T15:59:13.341Z"
-        }
-      ]
-    }
-  },
-  "PATCH /api/articles/:article_id": {
-    "description": "increments or decrements the votes of a selected article",
-    "queries": ["author", "topic", "sort_by", "order"],
+  "POST /api/plants": {
+    "description": "adds a plant to the database",
     "requestBody": {
-      "inc_votes": 1
+      "name": "testPlant",
+      "description": "testDesc",
+      "username": "strawberry123",
+      "food_inc": 11,
+      "water_inc": 10
     },
     "exampleResponse": {
-      "article": [
-        {
-          "title": "Seafood substitutions are increasing",
-          "topic": "cooking",
-          "author": "weegembump",
-          "body": "Text from the article..",
-          "created_at": "2018-05-30T15:59:13.341Z",
-          "votes": 1,
-          "comment_count": 6
-        }
-      ]
+      "plant": {
+        "name": "testPlant",
+        "description": "testDesc",
+        "image_url": "hi",
+        "waterDate": 1709550346370,
+        "foodDate": 1709636746370,
+        "user_id": "65d87b7e0c335b3f1551dc61",
+        "_id": "65d87c0a27e143441e7026f5",
+        "createdAtDate": 1708686346373,
+        "__v": 0
+      }
     }
   },
-  "DELETE /api/plants": {
-    "description": "deletes the requested comment if comment exists",
+  "GET /api/plants/:plant_id": {
+    "description": "serves an array of a plant by it's plant_id",
+    "queries": [],
+    "exampleResponse": {
+      "plant": {
+        "_id": "65d743ad122043c102717cfc",
+        "name": "Strawberry plant",
+        "description": "I am a strawberry plant",
+        "image_url": "hi",
+        "user_id": "65d741a5122043c102717cf2",
+        "createdAtDate": 1708606381825,
+        "waterDate": 1708606381825,
+        "foodDate": 1708606381825,
+        "updatedDate": "2024-02-22T12:53:01.825Z",
+        "__v": 0
+      }
+    }
+  },
+  "DELETE /api/plants/:plant_id": {
+    "description": "deletes the plant from the database",
     "exampleResponse": {
       "status": 204
     }

@@ -3,9 +3,11 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 const seed = require("../db/seeds/seed.js");
 const testData = require("../db/data/test/index.js");
+const endpoints = require("../endpoints.json");
+
 let testPlantId;
 beforeEach(async () => {
-  testPlantId = await seed(testData)
+  testPlantId = await seed(testData);
 });
 afterAll(async () => {
   await mongoose.connection.close();
@@ -15,26 +17,36 @@ describe("app", () => {
   describe("GET /api/users", () => {
     test("Status Code: 200 and should return all users data", () => {
       return request(app)
-        .get("/api/users") 
+        .get("/api/users")
         .expect(200)
         .then(({ _body }) => {
-          console.log(_body);
-          expect(_body[0]).toHaveProperty("username");
-          expect(_body[0]).toHaveProperty("email");
+          expect(_body.users[0]).toHaveProperty("username");
+          expect(_body.users[0]).toHaveProperty("email");
         });
     });
     test("Status Code: 400 and error message", () => {
       return request(app).get("/api/us3r5").expect(404);
     });
   });
+
+  describe("/api", () => {
+    test("GET: 200 responds with an object describing all available endpoints on API", () => {
+      return request(app)
+        .get("/api")
+        .then((result) => {
+          expect(result.body.endpoints).toEqual(endpoints);
+        });
+    });
+  });
+
   describe("GET /api/users/:username", () => {
     test("Status Code: 200 and should return with a specific user", () => {
       return request(app)
         .get("/api/users/kong123")
         .expect(200)
         .then(({ _body }) => {
-          expect(_body).toHaveProperty("email");
-          expect(_body).toHaveProperty("plants");
+          expect(_body.user).toHaveProperty("email");
+          expect(_body.user).toHaveProperty("plants");
         });
     });
     test("Status Code: 404 for an invalid user", () => {
@@ -46,6 +58,7 @@ describe("app", () => {
         });
     });
   });
+
   describe("POST /api/users", () => {
     test("Status Code: 201 and should create a new user", () => {
       return request(app)
@@ -53,10 +66,10 @@ describe("app", () => {
         .send({ username: "test", email: "<EMAIL>" })
         .expect(201)
         .then(({ _body }) => {
-          expect(_body).toHaveProperty("username");
-          expect(_body).toHaveProperty("email");
-          expect(_body).toHaveProperty("plants");
-          expect(_body).toHaveProperty("_id");
+          expect(_body.user).toHaveProperty("username");
+          expect(_body.user).toHaveProperty("email");
+          expect(_body.user).toHaveProperty("plants");
+          expect(_body.user).toHaveProperty("_id");
         });
     });
   });
@@ -79,9 +92,9 @@ describe("GET /api/plants", () => {
       .get("/api/plants")
       .expect(200)
       .then(({ _body }) => {
-        expect(_body[0]).toHaveProperty("name");
-        expect(_body[0]).toHaveProperty("description");
-        expect(_body[0]).toHaveProperty("user_id");
+        expect(_body.plants[0]).toHaveProperty("name");
+        expect(_body.plants[0]).toHaveProperty("description");
+        expect(_body.plants[0]).toHaveProperty("user_id");
       });
   });
   test("Status Code: 404 for invalid endpoint", () => {
@@ -91,14 +104,13 @@ describe("GET /api/plants", () => {
 
 describe("GET /api/plant/:plant_id", () => {
   test("Status Code: 200 and should return plant", () => {
-    console.log(typeof testPlantId.toString())
     return request(app)
       .get(`/api/plants/${testPlantId.toString()}`)
       .expect(200)
       .then(({ _body }) => {
-        expect(_body).toHaveProperty("name");
-        expect(_body).toHaveProperty("description");
-        expect(_body).toHaveProperty("user_id");
+        expect(_body.plant).toHaveProperty("name");
+        expect(_body.plant).toHaveProperty("description");
+        expect(_body.plant).toHaveProperty("user_id");
       });
   });
   test("Status Code: 404 for invalid endpoint", () => {
@@ -112,10 +124,10 @@ describe("GET Plants by username /api/users/:username/plants", () => {
       .get("/api/users/kong123/plants")
       .expect(200)
       .then(({ body }) => {
-        expect(body[0]).toHaveProperty("name");
-        expect(body[0]).toHaveProperty("description");
-        expect(body[0]).toHaveProperty("createdAtDate");
-        expect(body[0]).toHaveProperty("waterDate");
+        expect(body.plants[0]).toHaveProperty("name");
+        expect(body.plants[0]).toHaveProperty("description");
+        expect(body.plants[0]).toHaveProperty("createdAtDate");
+        expect(body.plants[0]).toHaveProperty("waterDate");
       });
   });
   test("Status Code: 404 for invalid username", () => {
@@ -135,12 +147,11 @@ describe("POST /api/plants", () => {
       })
       .expect(201)
       .then(({ body }) => {
-        console.log(body);
-        expect(body).toHaveProperty("name");
-        expect(body).toHaveProperty("description");
-        expect(body).toHaveProperty("createdAtDate");
-        expect(body).toHaveProperty("waterDate");
-        expect(body).toHaveProperty("foodDate");
+        expect(body.plant).toHaveProperty("name");
+        expect(body.plant).toHaveProperty("description");
+        expect(body.plant).toHaveProperty("createdAtDate");
+        expect(body.plant).toHaveProperty("waterDate");
+        expect(body.plant).toHaveProperty("foodDate");
       });
   });
   test("Status Code: 400 and respond with appropriate error message", () => {
@@ -156,15 +167,16 @@ describe("POST /api/plants", () => {
       });
   });
 });
-describe("DELETE /api/plants/:plant_id", () => {
+describe("DELETE /api/users/username/plants/:plant_id", () => {
   test("Status Code: 200 and delete plant successfully ", () => {
-    console.log(testPlantId)
-
+    console.log(testPlantId, "<--- id for plant");
     return request(app)
-      .delete(`/api/plants/${testPlantId.toString()}`)
+      .delete(`/api/users/strawberry123/plants/${testPlantId.toString()}`)
       .expect(204);
   });
   test("Status Code: 404", () => {
-    return request(app).delete("/api/plants/invalidPlantId").expect(404);
+    return request(app)
+      .delete("/api/users/rt54h45h/plants/rty45h45h")
+      .expect(404);
   });
 });

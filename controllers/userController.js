@@ -44,5 +44,28 @@ const getPlantsByUserId = async (req, res, next) => {
     next(err);
   }
 };
+const deletePlant = async (req, res, next) => {
+  const { username, plant_id } = req.params;
 
-module.exports = { getUserById, getPlantsByUserId, postUser, getUsers };
+  try {
+    await Plant.findByIdAndDelete(plant_id);
+    const user = await User.findOne({ username: username });
+
+    user.plants.filter((plant) => {
+      return plant._id.toString() !== plant_id;
+    });
+    await user.save();
+
+    res.status(204).send();
+  } catch (err) {
+    res.status(404).send();
+    next(err);
+  }
+};
+module.exports = {
+  getUserById,
+  getPlantsByUserId,
+  postUser,
+  getUsers,
+  deletePlant,
+};

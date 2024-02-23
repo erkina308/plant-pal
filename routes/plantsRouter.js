@@ -11,8 +11,6 @@ const {
 
 plantsRouter.route("/").post(postPlant).get(getPlants);
 
-plantsRouter.route("/:plant_id").delete(deletePlant);
-
 plantsRouter.route("/:plant_id").get(getPlant);
 
 module.exports = plantsRouter;

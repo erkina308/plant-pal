@@ -6,7 +6,6 @@ const postPlant = async (req, res, next) => {
   try {
     const user1 = await User.findOne({ username: username });
     const user_id = user1._id;
-    console.log(typeof user_id, "user_id");
 
     const plant = await Plant.create({
       name: name,
@@ -51,23 +50,8 @@ const getPlant = async (req, res, next) => {
   }
 };
 
-const deletePlant = async (req, res, next) => {
-  const { plant_id } = req.params;
-
-  try {
-    // const plantsBefore = await Plant.find()
-    await Plant.findByIdAndDelete(plant_id);
-    // const plantsAfter = await Plant.find()
-
-    res.status(204).send();
-  } catch (err) {
-    res.status(404).send();
-    next(err);
-  }
-};
 module.exports = {
   postPlant,
   getPlants,
   getPlant,
-  deletePlant,
 };

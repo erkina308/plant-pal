@@ -4,12 +4,14 @@ require("dotenv").config({
 const connectDb = require("./connection.js");
 const express = require("express");
 const apiRouter = require("./routes/apiRouter");
+const { getAllEndpoints } = require("./controllers/endpointsController.js");
 
 connectDb();
 
 const app = express();
 app.use(express.json());
 // app.use(cors);
+app.get("/api", getAllEndpoints);
 app.use("/api", apiRouter);
 
 app.use((err, req, res, next) => {
