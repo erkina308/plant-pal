@@ -48,7 +48,7 @@ const getPlants = async (req, res, next) => {
   }
 };
 
-const getPlant = async (req, res, next) => {
+const deletePlant = async (req, res, next) => {
   const { plant_id } = req.params;
   try {
     const plant = await Plant.findByIdAndDelete(plant_id);
@@ -65,5 +65,5 @@ const getPlant = async (req, res, next) => {
 module.exports = {
   postPlant,
   getPlants,
-  getPlant,
+  deletePlant,
 };
