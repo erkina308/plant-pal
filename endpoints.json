@@ -127,6 +127,7 @@
       "name": "testPlant",
       "description": "testDesc",
       "username": "strawberry123",
+      "image_url": "defaulturl",
       "food_inc": 11,
       "water_inc": 10
     },
@@ -162,7 +163,7 @@
       }
     }
   },
-  "DELETE /api/plants/:plant_id": {
+  "DELETE /api/users/:username/plants/:plant_id": {
     "description": "deletes the plant from the database",
     "exampleResponse": {
       "status": 204

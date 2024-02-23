@@ -48,17 +48,23 @@ const deletePlant = async (req, res, next) => {
   const { username, plant_id } = req.params;
 
   try {
+    // const plant = await Plant.find({ _id: plant_id });
+    // if (!plant.length) {
+    //   return Promise.reject({ status: 404, text: `Plant doesn't exist` });
+    // }
+
     await Plant.findByIdAndDelete(plant_id);
     const user = await User.findOne({ username: username });
 
-    user.plants.filter((plant) => {
+    user.plants = user.plants.filter((plant) => {
       return plant._id.toString() !== plant_id;
     });
+
     await user.save();
 
     res.status(204).send();
   } catch (err) {
-    res.status(404).send();
+    res.status(404).send("Plant doesn't exist");
     next(err);
   }
 };

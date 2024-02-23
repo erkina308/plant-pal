@@ -2,7 +2,8 @@ const Plant = require("../models/plantSchema");
 const User = require("../models/userSchema");
 
 const postPlant = async (req, res, next) => {
-  const { name, description, username, food_inc, water_inc } = req.body;
+  const { name, description, username, food_inc, water_inc, image_url } =
+    req.body;
   try {
     const user1 = await User.findOne({ username: username });
     const user_id = user1._id;
@@ -11,6 +12,7 @@ const postPlant = async (req, res, next) => {
       name: name,
       description: description,
       user_id: user_id,
+      image_url: image_url,
       waterDate: Date.now() + Number(water_inc) * (24 * 3600000),
       waterInterval: Number(water_inc) * (24 * 3600000),
       foodDate: Date.now() + Number(food_inc) * (24 * 3600000),

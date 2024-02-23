@@ -144,6 +144,7 @@ describe("POST /api/plants", () => {
         username: "strawberry123",
         food_inc: 11,
         water_inc: 10,
+        image_url: "https://i.ibb.co/xXMbNb3/defaultplant-480.png",
       })
       .expect(201)
       .then(({ body }) => {
@@ -152,6 +153,7 @@ describe("POST /api/plants", () => {
         expect(body.plant).toHaveProperty("createdAtDate");
         expect(body.plant).toHaveProperty("waterDate");
         expect(body.plant).toHaveProperty("foodDate");
+        expect(body.plant).toHaveProperty("image_url");
       });
   });
   test("Status Code: 400 and respond with appropriate error message", () => {
@@ -170,7 +172,7 @@ describe("POST /api/plants", () => {
 describe("DELETE /api/users/username/plants/:plant_id", () => {
   test("Status Code: 200 and delete plant successfully ", () => {
     const id = testPlantId.toString();
-    console.log(typeof id, "from test");
+    console.log(id, "from test");
     return request(app)
       .delete(`/api/users/strawberry123/plants/${id}`)
       .expect(204);
@@ -179,6 +181,20 @@ describe("DELETE /api/users/username/plants/:plant_id", () => {
   test("Status Code: 404", () => {
     return request(app)
       .delete("/api/users/rt54h45h/plants/rty45h45h")
-      .expect(404);
+      .expect(404)
+      .then((response) => {
+        console.log(response);
+        expect(response.text).toBe("Plant doesn't exist");
+      });
+  });
+
+  test("non existent plant id ", () => {
+    return request(app)
+      .delete("/api/users/strawberry123/plants/rty45h45h")
+      .expect(404)
+      .then((response) => {
+        console.log(response);
+        expect(response.text).toBe("Plant doesn't exist");
+      });
   });
 });
