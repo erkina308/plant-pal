@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-const currDate = Date.now();
+//const currDate = Date.now();
 const plantSchema = new Schema({
   name: String,
   description: String,
@@ -21,17 +21,17 @@ const plantSchema = new Schema({
   },
   waterInterval: {
     type: Number,
-    default: () => currDate + (10 * oneDayInMilliseconds),
+    default: () => 10 * oneDayInMilliseconds,
     required: true,
   },
   foodDate: {
     type: Number,
-    default: () => currDate + (10 * oneDayInMilliseconds),
+    default: () => Date.now() + (10 * oneDayInMilliseconds),
     required: true,
   },
   foodInterval: {
     type: Number,
-    default: () => 10 * (24 * 3600000),
+    default: () => 10 * oneDayInMilliseconds,
     required: true,
   },
   user_id: { type: Schema.Types.ObjectId, ref: "User" },
@@ -40,3 +40,4 @@ const plantSchema = new Schema({
 const Plant = mongoose.model("Plant", plantSchema);
 
 module.exports = Plant;
+

@@ -22,3 +22,10 @@ const func = (days) => {
 // console.log(new Date() + Number(12) * 24 * 60 * 60 * 1000);
 
 // console.log(Date.now());
+
+let currDate = new Date();
+console.log(currDate, "wewew");
+let numberOfDaysToAdd = 12;
+let result = currDate.setDate(currDate.getDate() + numberOfDaysToAdd);
+console.log(new Date(result), "<--- new date result");
+console.log(Date.now())

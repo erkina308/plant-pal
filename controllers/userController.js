@@ -79,7 +79,6 @@ const patchPlant = async (req, res, next) => {
   const currentDate = Date.now()
   try {
     const plant = await Plant.findById(plant_id);
-    console.log(plant.foodDate, "Before Change")
     if (water_plant) {
       plant.waterDate =  currentDate + plant.waterInterval;
     }
@@ -87,10 +86,10 @@ const patchPlant = async (req, res, next) => {
       plant.foodDate = currentDate + plant.foodInterval;
     }
     await plant.save();
+    console.log(plant.waterDate , "waterDate after saving")
 
     // console.log(plant_id, "<---- plant id before finding updated plant");
 
-    console.log(plant.foodDate, "<---- food date after change")
     res.status(204).send({ plant: plant });
   } catch (err) {
     res.status(404).send("Plant doesn't exist");

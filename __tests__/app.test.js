@@ -221,11 +221,7 @@ describe("PATCH /api/users/username/plants/:plant_id", () => {
       .expect(204)
       .then((response) => {
         // console.log(response, "<-- response in test");
-        // console.log(response);
+        // console.log(response.);
       });
   });
 });
-var someDate = new Date();
-var numberOfDaysToAdd = 6;
-var result = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
-console.log(new Date(result))
