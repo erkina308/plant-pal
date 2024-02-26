@@ -7,6 +7,7 @@ const {
   getUsers,
   getPlantsByUserId,
   deletePlant,
+  patchPlant
 } = require("../controllers/userController");
 
 userRouter.route("/:username").get(getUserById);
@@ -15,6 +16,6 @@ userRouter.route("/").post(postUser).get(getUsers);
 
 userRouter.route("/:username/plants").get(getPlantsByUserId);
 
-userRouter.route("/:username/plants/:plant_id").delete(deletePlant);
+userRouter.route("/:username/plants/:plant_id").delete(deletePlant).patch(patchPlant);
 
 module.exports = userRouter;

@@ -20,9 +20,9 @@ const plantSchema = new Schema({
   },
   waterInterval: {
     type: Number,
-    default: () => Date.now() + 10 * (24 * 3600000),
+    default: () => 10 * (24 * 3600000),
     required: true,
-  },
+  }, 
   foodDate: {
     type: Number,
     default: () => Date.now() + 10 * (24 * 3600000),
@@ -30,7 +30,7 @@ const plantSchema = new Schema({
   },
   foodInterval: {
     type: Number,
-    default: () => Date.now() + 10 * (24 * 3600000),
+    default: () => 10 * (24 * 3600000),
     required: true
   },
   user_id: { type: Schema.Types.ObjectId, ref: "User" },

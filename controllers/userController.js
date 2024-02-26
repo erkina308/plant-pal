@@ -72,10 +72,35 @@ const deletePlant = async (req, res, next) => {
     next(err);
   }
 };
+
+const patchPlant = async (req, res, next) => {
+  const { plant_id } = req.params
+  const { water_plant, feed_plant } = req.body;
+
+  try {
+
+    const plant = await Plant.findById(plant_id);
+    
+    if (water_plant) {
+      plant.waterDate = Date.now() + plant.waterInterval
+    }
+    if (feed_plant) {
+      plant.foodDate = Date.now() + plant.foodInterval
+    }
+    await plant.save()
+    const updatedPlant = await Plant.findById(plant_id)
+    res.status(204).send({plant:updatedPlant});
+  } catch (err) {
+    res.status(404).send("Plant doesn't exist");
+    next(err);
+  }
+};
+
 module.exports = {
   getUserById,
   getPlantsByUserId,
   postUser,
   getUsers,
   deletePlant,
+  patchPlant
 };
