@@ -212,3 +212,15 @@ describe("DELETE /api/users/username/plants/:plant_id", () => {
       });
   });
 });
+
+describe("PATCH /api/users/username/plants/:plant_id", () => {
+  test("Status Code: 200 and delete plant successfully ", () => {
+    const id = testPlantId.toString();
+    return request(app)
+      .patch(`/api/users/strawberry123/plants/${id}`)
+      .expect(204)
+      .then((response) => {
+        console.log(response, "<-- response in test");
+      });
+  });
+});
