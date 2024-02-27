@@ -2,7 +2,7 @@ const Plant = require("../models/plantSchema");
 const User = require("../models/userSchema");
 
 const postPlant = async (req, res, next) => {
-  const { name, description, username, food_inc, water_inc, image_url } =
+  const { name, species, description, username, food_inc, water_inc, image_url } =
     req.body;
   try {
     const user1 = await User.findOne({ username: username });
@@ -10,6 +10,7 @@ const postPlant = async (req, res, next) => {
 
     const plant = await Plant.create({
       name: name,
+      species: species,
       description: description,
       user_id: user_id,
       image_url: image_url,
@@ -27,6 +28,7 @@ const postPlant = async (req, res, next) => {
   } catch (err) {
     if (
       !name ||
+      !species ||
       !description ||
       !username ||
       !food_inc ||
