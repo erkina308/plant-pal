@@ -147,7 +147,7 @@ describe("GET Plants by username /api/users/:username/plants", () => {
   });
 });
 describe("POST /api/plants", () => {
-  test.only("Status Code: 201 and should create a new plant", () => {
+  test("Status Code: 201 and should create a new plant", () => {
     return request(app)
       .post("/api/plants")
       .send({
@@ -223,8 +223,7 @@ describe("PATCH /api/users/username/plants/:plant_id", () => {
       })
       .expect(204)
       .then((response) => {
-        // console.log(response, "<-- response in test");
-        // console.log(response.);
+        console.log(response.body, "patch response");
       });
   });
 });
