@@ -27,7 +27,7 @@ const plantSchema = new Schema({
   },
   foodDate: {
     type: Number,
-    default: () => Date.now() + (10 * oneDayInMilliseconds),
+    default: () => Date.now() + 10 * oneDayInMilliseconds,
     required: true,
   },
   foodInterval: {
@@ -41,4 +41,3 @@ const plantSchema = new Schema({
 const Plant = mongoose.model("Plant", plantSchema);
 
 module.exports = Plant;
-

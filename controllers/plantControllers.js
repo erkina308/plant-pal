@@ -2,8 +2,16 @@ const Plant = require("../models/plantSchema");
 const User = require("../models/userSchema");
 
 const postPlant = async (req, res, next) => {
-  const { name, species, description, username, food_inc, water_inc, image_url } =
-    req.body;
+  const {
+    name,
+    species,
+    description,
+    username,
+    food_inc,
+    water_inc,
+    image_url,
+  } = req.body;
+  console.log(req.body.species);
   try {
     const user1 = await User.findOne({ username: username });
     const user_id = user1._id;
