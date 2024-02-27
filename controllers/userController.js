@@ -75,7 +75,7 @@ const deletePlant = async (req, res, next) => {
 
 const patchPlant = async (req, res, next) => {
   const { plant_id } = req.params;
-  const { water_plant, feed_plant } = req.body;
+  const { water_plant, feed_plant, image_url } = req.body;
   const currentDate = Date.now()
   try {
     const plant = await Plant.findById(plant_id);
@@ -84,6 +84,9 @@ const patchPlant = async (req, res, next) => {
     }
     if (feed_plant) {
       plant.foodDate = currentDate + plant.foodInterval;
+    }
+    if (image_url) {
+      plant.image_url = image_url
     }
     await plant.save();
     console.log(plant.waterDate , "waterDate after saving")

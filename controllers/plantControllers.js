@@ -15,7 +15,7 @@ const postPlant = async (req, res, next) => {
   try {
     const user1 = await User.findOne({ username: username });
     const user_id = user1._id;
-
+      console.log(user1._id, "_ID")
     const plant = await Plant.create({
       name: name,
       species: species,
@@ -30,6 +30,7 @@ const postPlant = async (req, res, next) => {
 
     const user = await User.findById(user_id);
     user.plants.push(plant._id);
+    console.log(plant, "Plant")
 
     await user.save();
     res.status(201).send({ plant: plant });
