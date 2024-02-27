@@ -4,7 +4,10 @@ const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
 //const currDate = Date.now();
 const plantSchema = new Schema({
   name: String,
-  species: String,
+  species: {
+    type: String,
+    default: "dongo"
+  },
   description: String,
   image_url: {
     type: String,
