@@ -147,11 +147,12 @@ describe("GET Plants by username /api/users/:username/plants", () => {
   });
 });
 describe("POST /api/plants", () => {
-  test("Status Code: 201 and should create a new plant", () => {
+  test.only("Status Code: 201 and should create a new plant", () => {
     return request(app)
       .post("/api/plants")
       .send({
         name: "test",
+        species: "test",
         description: "test",
         username: "strawberry123",
         food_inc: 11,
@@ -160,12 +161,14 @@ describe("POST /api/plants", () => {
       })
       .expect(201)
       .then(({ body }) => {
+        console.log(body.plant.species);
         expect(body.plant).toHaveProperty("name");
         expect(body.plant).toHaveProperty("description");
         expect(body.plant).toHaveProperty("createdAtDate");
         expect(body.plant).toHaveProperty("waterDate");
         expect(body.plant).toHaveProperty("foodDate");
         expect(body.plant).toHaveProperty("image_url");
+        expect(body.plant).toHaveProperty("species");
       });
   });
   test("Status Code: 400 and respond with appropriate error message", () => {
